@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://kit.fontawesome.com/6c14a872c1.js" ></script>
+   
+</head>
+
+<body style="background-color: #CFD0D4;">
+    <section id="header">
+        <a href="#"><img src="./image/logo.png" id="logo" alt=""></a>
+
+        <div>
+          <p id="user"></p>
+
+            <ul id="navbar">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./shop.html">Shop</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a id="signInOption" href="./signin.html">Sign In</a></li>
+                <a href="#" id="close"><i class="fa fa-times"></i></a>
+                <li><a id="signOutOption" style="display: none;" href="#">Log Out</a></li>
+            </ul>
+            <a class="cart-icon"  class="active"  href="./shop.html"><i class="fa-solid fa-cart-shopping" style="color: #088178;" id="lg-black"></i></a>
+        </div>
+        <div id="mobile">
+            <!-- <a><i class="fa-solid fa-cart-shopping" style="color: #088178" id="lg-black"></i><div id="cartAmount">0</div></a> -->
+            <i id="bar" class="fa-solid fa-bars"></i>
+        </div>
+    </section>
+
+    <div class="checkout-container">
+        <h1>Payment Section</h1>
+        <div class="container" style="margin-bottom: 20px;">
+            <div id="cartItem"></div>
+        </div>
+
+
+        <h3 id="totalPrice" class="total">Total: ₦0.00</h3>
+
+        <!-- Customer Details Form -->
+        <form id="checkoutForm">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="address">Shipping Address</label>
+            <input type="text" id="address" required>
+
+            <button class="checkout-btn" id="orderBtn" type="submit">Place Order</button>
+        </form>
+    </div>
+
+  
+
+<footer class="section-p1" >
+    <div class="col">
+        <img class="logo" src="./image/logo.png" alt="">
+        <h4 style="font-size: 27px;">Contact</h4>
+        <p style="font-size: 17px;"><Strong>Address:</Strong> 123 Street, New York, USA</p>
+        <p style="font-size: 17px;"><strong>Phone</strong> +123 456 7890</p>
+        <p style="font-size: 17px;"><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+        <div class="follow">
+            <h4 style="font-size: 20px;">Follow us</h4>
+            <div class="icon">
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+    </div>
+        
+        
+
+    <div class="col">
+        <h4 style="font-size: 25px;">About</h4>
+        <a href="#">About us</a>
+        <a href="#">Delivery Information</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Contact us</a>
+    </div>
+
+    <div class="col">
+        <h4 style="font-size: 25px;">My Account</h4>
+        <a href="#">Sign In</a>
+        <a href="#">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="#">Track My Order</a>
+        <a href="#">Help</a>
+    </div>
+
+    <div class="col book">
+        <h4 style="font-size: 25px;">Book Service</h4>
+        <p>Contact Us to learn more about our service appiontment</p>
+        <div>
+            <img src="./image/booking.png" alt="">
+        </div>
+                
+    </div>
+
+    
+    
+    <div class="copyright">
+        <p id="copyrigt">
+    
+        </p>
+    </div>
+</footer>
+
+
+<!-- <script type="module" src="./function.js"></script> -->
+<script src="./script.js" type="module"></script>
+
+</body>
+  <script type="module">
+    const checkoutContainer = document.getElementById("cartItem");
+    const totalPriceElement = document.getElementById("totalPrice");
+    const orderBtn = document.getElementById("orderBtn");
+    let name = document.getElementById("name");
+    let email = document.getElementById("email");
+    let address = document.getElementById("address");
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Display checkout items
+function displayCheckout() {
+  checkoutContainer.innerHTML = "";
+
+  cart.forEach((item) => {
+    checkoutContainer.innerHTML += `
+      <div class="checkout-item" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+         <div class="row-img">
+              <img class="rowimg" src="${item.image}" alt=""/>
+           </div>
+            <p>${item.name}</p>
+            <h4 class="totalPrice">₦ ${item.price}.00</h4>
+           <p>Quantity: ${item.quantity}</p>
+      </div>
+    `;
+  });
+
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalPriceElement.textContent = `Total: ₦${totalPrice}`;
+}
+orderBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (name.value === '' && email.value === '' && address.value === '') {
+            
+            Toastify({
+            text: "Please fill all fields",
+            duration: 3000, // Duration in milliseconds
+            gravity: "top", // "top" or "bottom"
+            position: "right", // "left", "center", or "right"
+            style: {
+              background: "linear-gradient(to right, #088178, #088178)",
+              color: "#fff",
+            },
+          }).showToast();
+        }else{
+            console.log('bad');
+            
+            Toastify({
+            text: "Congratulations your order has been placed!",
+            duration: 3000, // Duration in milliseconds
+            gravity: "top", // "top" or "bottom"
+            position: "right", // "left", "center", or "right"
+            style: {
+              background: "linear-gradient(to right, #088178, #088178)",
+              color: "#fff",
+            },
+          }).showToast();
+        }
+    });
+
+    displayCheckout();
+
+
+    </script>
+</html>
