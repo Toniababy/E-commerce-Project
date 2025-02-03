@@ -43,7 +43,18 @@ import {
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { firebaseConfig } from "./hide.js";
+
+
+
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBkCMqPUCJYpgJBeEAvsve67gvPq99d4yc",
+  authDomain: "javascript-project--e-commerce.firebaseapp.com",
+  projectId: "javascript-project--e-commerce",
+  storageBucket: "javascript-project--e-commerce.firebasestorage.app",
+  messagingSenderId: "478342137748",
+  appId: "1:478342137748:web:bfeef9164cbc7b752cf181",
+};
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -55,7 +66,6 @@ export const auth = getAuth(app);
 document.addEventListener("DOMContentLoaded", () => {
   const signInOption = document.getElementById("signInOption");
   const signOutOption = document.getElementById("signOutOption");
-
   // Listen for authentication state changes
   onAuthStateChanged(auth, async (user) => {
     if (user) {
