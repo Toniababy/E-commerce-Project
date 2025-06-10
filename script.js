@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Redirect to login page if not already there
-      if (window.location.pathname !== "/login.html") {
-        window.location.replace("./login.html");
+      if (window.location.pathname !== "/signin.html") {
+        window.location.replace("./signin.html");
       }
     }
   });
