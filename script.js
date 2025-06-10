@@ -89,10 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
         signOutOption.style.display = "none";
       }
 
-      // Redirect to login page if not already there
-      if (window.location.pathname !== "/signin.html") {
-        window.location.replace("./signin.html");
-      }
+      if (!user) {
+  if (signInOption && signOutOption) {
+    signInOption.style.display = "block";
+    signOutOption.style.display = "none";
+  }
+
+  // Allow both signin and login pages
+  const allowedPaths = ["/signin.html", "/login.html"];
+  if (!allowedPaths.includes(window.location.pathname)) {
+    window.location.replace("./signin.html");
+  }
+}
+
     }
   });
 });
